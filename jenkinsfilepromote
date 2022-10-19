@@ -3,14 +3,14 @@ pipeline {
     triggers{ cron('* 17 * * *') }
     stages {
         stage ('vcs') { 
-            git url : 'git@github.com:GOWTHI143/spring-petclinic.git'
+            git url : 'https://github.com/GOWTHI143/spring-petclinic.git'
         }
         stage ('merge') {
             {
                 sh """git pull --all
                       git checkout release
                       git merge develop --no-ff 
-                      git push --all """
+                      git push """
             }
         }
     }
