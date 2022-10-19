@@ -10,7 +10,7 @@ pipeline{
         }
         stage('build') {
             steps {
-                sh 'mvnw package'
+                sh 'mvn clean install'
             }
         }
         stage ('archive artifacts') {
