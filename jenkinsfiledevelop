@@ -1,27 +1,19 @@
-pipeline{
+pipeline {
     agent {label 'MVN'}
-    triggers { pollSCM('* * * * *')}
+    triggers { 
+        pollSCM('* * * * *')
+    }
     stages {
         stage ('vcs') {
             steps{
-                git branch: 'develop',
-                    url : 'https://github.com/GOWTHI143/spring-petclinic.git'
+                git url: 'https://github.com/GOWTHI143/spring-petclinic.git',
+                branch: 'develop'
             }
         }
-        stage('build') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
-        stage ('archive artifacts') {
-            steps  {
-                archiveArtifacts artifacts: '**/target/*.jar'
-            }
-        }
-        stage ('archive results') {
-            steps {
-                junit '**/surefire-reports/*.xml'
+    stage('build') {
+        steps {
+            sh 'mvn clean install'
             }
         }
     }
-}
+
